@@ -2,11 +2,11 @@
 pragma solidity ^0.8.24;
 
 import {FHE, euint32, externalEuint32} from "@fhevm/solidity/lib/FHE.sol";
-import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
+import {ZamaEthereumConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
 /// @title Peer Review - Anonymous Peer Review and Encrypted Scoring Platform
 /// @notice A FHEVM-based anonymous peer review system where members can encrypt scores for each other
-contract PeerReview is SepoliaConfig {
+contract PeerReview is ZamaEthereumConfig {
     // Round structure
     struct ReviewRound {
         uint256 roundId;

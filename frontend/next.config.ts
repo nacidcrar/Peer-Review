@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
   // Only set if basePath is not empty (empty means root domain deployment)
   ...(basePath && { basePath, assetPrefix: basePath }),
   
+  // Optimize images handling for static export and GitHub Pages
+  images: { unoptimized: true },
+  // Ensure trailing slash for static hosting compatibility
+  trailingSlash: true,
+  
   // Headers configuration (only works for non-static exports)
   // Note: GitHub Pages doesn't support custom headers, but keeping this
   // for other deployment scenarios
@@ -44,11 +49,24 @@ const nextConfig: NextConfig = {
       // Required by FHEVM 
       return Promise.resolve([
         {
-          source: '/',
+          source: '/:path*',
           headers: [
             {
               key: 'Cross-Origin-Opener-Policy',
               value: 'same-origin',
+            },
+            {
+              key: 'Cross-Origin-Embedder-Policy',
+              value: 'require-corp',
+            },
+          ],
+        },
+        {
+          source: '/:path*.wasm',
+          headers: [
+            {
+              key: 'Content-Type',
+              value: 'application/wasm',
             },
             {
               key: 'Cross-Origin-Embedder-Policy',

@@ -1,0 +1,28 @@
+﻿name: CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Print environment
+        run: |
+          node -v
+          npm -v
+          echo "CI triggered on push to main."
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print info
+        run: echo "CI pipeline triggered"
