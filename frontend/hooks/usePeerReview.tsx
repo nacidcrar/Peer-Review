@@ -424,8 +424,12 @@ export const usePeerReview = (parameters: {
             return;
           }
 
-          const total = Number(totalRes[totalHandle]);
-          const count = Number(countRes[countHandle]);
+          // The SDK returns a ClearValues-like map keyed by decrypt handles.
+          // Cast to a string-indexed record to safely access by handle.
+          const totalMap = totalRes as unknown as Record<string, string | number | bigint | boolean>;
+          const countMap = countRes as unknown as Record<string, string | number | bigint | boolean>;
+          const total = Number(totalMap[totalHandle]);
+          const count = Number(countMap[countHandle]);
           const average = count > 0 ? total / count : 0;
 
           setDecryptedAverages((prev) => ({
